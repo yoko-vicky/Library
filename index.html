@@ -25,13 +25,27 @@
       <tbody id="books_body">
       </tbody>
     </table>
-    <button id="new_book_button">Add New Book</button>
-    <form id="book_form">
-      Title: <input type="text" name="title"><br>
-      Author: <input type="text" name="author"><br>
-      Pages: <input type="text" name="pages"><br>
-      Read: <input type="checkbox" name="status"><br>
-      <input type="submit">
+    <button id="new_book_button" class="btn">Add New Book</button>
+    <form id="book_form" class="form">
+      <div class="form__field">
+        <label for="title">Title: </label>
+        <input type="text" name="title" id="title">
+      </div>
+
+      <div class="form__field">
+        <label for="author">Author</label>
+        <input type="text" name="author" id="author">
+      </div>
+
+      <div class="form__field">
+        <label for="pages">Pages: </label>
+        <input type="text" name="pages" id="pages">
+      </div>
+      <div class="form__field">
+        <label for="status">Read: </label>
+        <input type="checkbox" name="status" id="status">
+      </div>
+      <input type="submit" class="btn">
     </form>
   </div>
   <script src="./assets/script.js"></script>

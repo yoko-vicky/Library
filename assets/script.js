@@ -1,4 +1,14 @@
-const myLibrary = [];
+function getSavedLibrary() {
+  const libraryJSON = localStorage.getItem('library');
+
+  try {
+    return libraryJSON ? JSON.parse(libraryJSON) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+const myLibrary = getSavedLibrary();
 
 function Book(title, author, pages, status = false) {
   this.title = title;
@@ -9,6 +19,10 @@ function Book(title, author, pages, status = false) {
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
+}
+
+function addLibraryToLocalStorage() {
+  localStorage.setItem('library', JSON.stringify(myLibrary));
 }
 
 function removeBookFromLibrary(index) {
@@ -44,6 +58,7 @@ function displayLibrary(library) {
     checkBtn.addEventListener('click', (event) => {
       const index = event.target.getAttribute('data-attribute');
       changeStatusToBook(index);
+      addLibraryToLocalStorage();
       displayLibrary(myLibrary);
     });
 
@@ -57,14 +72,11 @@ function displayLibrary(library) {
     rmBtn.addEventListener('click', (event) => {
       const index = event.target.getAttribute('data-attribute');
       removeBookFromLibrary(index);
+      addLibraryToLocalStorage();
       displayLibrary(myLibrary);
     });
   });
 }
-
-const newBook = new Book('Nimo', 'captain nimo', 198, true);
-addBookToLibrary(newBook);
-displayLibrary(myLibrary);
 
 const newBookButton = document.getElementById('new_book_button');
 const addBookForm = document.getElementById('book_form');
@@ -81,9 +93,13 @@ addBookForm.addEventListener('submit', (event) => {
   book.pages = event.target.elements.pages.value;
   book.status = event.target.elements.status.checked;
   addBookToLibrary(book);
+  addLibraryToLocalStorage();
   displayLibrary(myLibrary);
   event.target.elements.title.value = '';
   event.target.elements.author.value = '';
   event.target.elements.pages.value = '';
   event.target.elements.status.checked = false;
 });
+
+// RUNNING CODE
+displayLibrary(myLibrary);
