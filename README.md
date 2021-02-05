@@ -40,7 +40,7 @@ After creating the book, you can:
 
 ## Live Demo
 
-[Live Demo Link](https://yocosaka.github.io)
+[Live Demo Link](https://mv-libray.netlify.app/)
 
 
 ## Getting Started
