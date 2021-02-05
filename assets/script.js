@@ -15,6 +15,10 @@ function removeBookFromLibrary(index) {
   myLibrary.splice(index, 1);
 }
 
+function changeStatusToBook(index) {
+  myLibrary[index].status = !myLibrary[index].status;
+}
+
 function displayLibrary(library) {
   const bookBody = document.querySelector('#books_body');
   bookBody.innerHTML = '';
@@ -28,8 +32,20 @@ function displayLibrary(library) {
       <td>${book.pages}</td>
       <td>${book.status ? 'Read already' : 'Not yet'}</td>
     `;
-
     bookBody.appendChild(tr);
+
+    const td = document.createElement('td');
+    const checkBtn = document.createElement('button');
+    checkBtn.classList.add('change_status_button');
+    checkBtn.setAttribute('data-attribute', index);
+    checkBtn.textContent = book.status ? 'Unread it?' : 'Read it?';
+    td.appendChild(checkBtn);
+    tr.appendChild(td);
+    checkBtn.addEventListener('click', (event) => {
+      const index = event.target.getAttribute('data-attribute');
+      changeStatusToBook(index);
+      displayLibrary(myLibrary);
+    });
 
     const td = document.createElement('td');
     const rmBtn = document.createElement('button');
@@ -38,7 +54,6 @@ function displayLibrary(library) {
     rmBtn.textContent = 'remove';
     td.appendChild(rmBtn);
     tr.appendChild(td);
-
     rmBtn.addEventListener('click', (event) => {
       const index = event.target.getAttribute('data-attribute');
       removeBookFromLibrary(index);
