@@ -49,11 +49,11 @@ e.g. $ git clone https://github.com/yourUsername/yourProjectName
 
 ## Authors
 
-👤 **Author1**
+👤 **Angel Barros**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/linkedinhandle)
+- GitHub: [@Zappat0n](https://github.com/Zappat0n)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/angel-barros/)
+
 
 👤 **Yoko Saka**
 
