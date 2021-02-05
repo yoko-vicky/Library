@@ -34,7 +34,7 @@ function displayLibrary(library) {
     `;
     bookBody.appendChild(tr);
 
-    const td = document.createElement('td');
+    let td = document.createElement('td');
     const checkBtn = document.createElement('button');
     checkBtn.classList.add('change_status_button');
     checkBtn.setAttribute('data-attribute', index);
@@ -47,7 +47,7 @@ function displayLibrary(library) {
       displayLibrary(myLibrary);
     });
 
-    const td = document.createElement('td');
+    td = document.createElement('td');
     const rmBtn = document.createElement('button');
     rmBtn.classList.add('remove_button');
     rmBtn.setAttribute('data-attribute', index);
