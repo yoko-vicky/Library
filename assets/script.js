@@ -12,8 +12,10 @@ function addBookToLibrary(book) {
 }
 
 function displayLibrary(library) {
+  const bookBody = document.querySelector('#books_body');
+  bookBody.innerHTML = '';
+
   library.forEach(book => {
-    const bookBody = document.querySelector('#books_body');
     const tr = document.createElement('tr');
 
     tr.innerHTML = `
@@ -30,3 +32,26 @@ function displayLibrary(library) {
 const newBook = new Book('Nimo', 'captain nimo', 198, true);
 addBookToLibrary(newBook);
 displayLibrary(myLibrary);
+
+const newBookButton = document.getElementById('new_book_button');
+const addBookForm = document.getElementById('book_form');
+const submitBookButton = document.getElementById('submit_book');
+
+newBookButton.addEventListener('click', function() {
+  addBookForm.style.display = addBookForm.style.display === 'none' ? 'block' : 'none';
+});
+
+addBookForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const book = new Book();
+  book.title = event.target.elements.title.value;
+  book.author = event.target.elements.author.value;
+  book.pages = event.target.elements.pages.value;
+  book.status = event.target.elements.status.checked;
+  addBookToLibrary(book);
+  displayLibrary(myLibrary);
+  event.target.elements.title.value = '';
+  event.target.elements.author.value = '';
+  event.target.elements.pages.value = '';
+  event.target.elements.status.checked = false;
+});
