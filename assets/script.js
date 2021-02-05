@@ -11,11 +11,15 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
+function removeBookFromLibrary(index) {
+  myLibrary.splice(index,1);
+}
+
 function displayLibrary(library) {
   const bookBody = document.querySelector('#books_body');
   bookBody.innerHTML = '';
 
-  library.forEach(book => {
+  library.forEach((book, index) => {
     const tr = document.createElement('tr');
 
     tr.innerHTML = `
@@ -23,9 +27,16 @@ function displayLibrary(library) {
       <td>${book.author}</td>
       <td>${book.pages}</td>
       <td>${book.status ? 'Read already' : 'Not yet'}</td>
-      <td>remove</td>
+      <td><button class='remove_button' data-attribute='${index}'>remove</button></td>
     `;
+
     bookBody.appendChild(tr);
+    const removeButtons = document.querySelectorAll('.remove_button');
+
+    removeButtons.forEach(button => {
+      addRemoveListenerToButton(button);
+    });
+
   });
 }
 
@@ -41,6 +52,14 @@ newBookButton.addEventListener('click', function() {
   addBookForm.style.display = addBookForm.style.display === 'none' ? 'block' : 'none';
 });
 
+function addRemoveListenerToButton(button) {
+  button.addEventListener('click', function(event) {
+    const index = event.target.getAttribute('data-attribute');
+    removeBookFromLibrary(index);
+    displayLibrary(myLibrary);
+  });
+}
+
 addBookForm.addEventListener('submit', function(event) {
   event.preventDefault();
   const book = new Book();
@@ -54,4 +73,8 @@ addBookForm.addEventListener('submit', function(event) {
   event.target.elements.author.value = '';
   event.target.elements.pages.value = '';
   event.target.elements.status.checked = false;
+});
+
+removeButtons.forEach(button => {
+  addRemoveListenerToButton(button);
 });
