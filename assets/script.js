@@ -1,4 +1,4 @@
-const LibraryModule = (function () {
+const LibraryModule = (() => {
   const getSavedLibrary = () => {
     const libraryJSON = localStorage.getItem('library');
 
@@ -114,7 +114,7 @@ const LibraryModule = (function () {
     submitForm,
     displayLibrary,
   };
-}());
+})();
 
 const myLibrary = LibraryModule.getSavedLibrary();
 
