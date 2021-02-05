@@ -85,20 +85,28 @@ newBookButton.addEventListener('click', () => {
   addBookForm.style.display = addBookForm.style.display === 'none' ? 'block' : 'none';
 });
 
+function setValues(book, el) {
+  book.title = el.title.value;
+  book.author = el.author.value;
+  book.pages = el.pages.value;
+  book.status = el.status.checked;
+}
+
+function clearValues(el) {
+  el.title.value = '';
+  el.author.value = '';
+  el.pages.value = '';
+  el.status.checked = false;
+}
+
 addBookForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const book = new Book();
-  book.title = event.target.elements.title.value;
-  book.author = event.target.elements.author.value;
-  book.pages = event.target.elements.pages.value;
-  book.status = event.target.elements.status.checked;
+  setValues(book, event.target.elements)
   addBookToLibrary(book);
   addLibraryToLocalStorage();
   displayLibrary(myLibrary);
-  event.target.elements.title.value = '';
-  event.target.elements.author.value = '';
-  event.target.elements.pages.value = '';
-  event.target.elements.status.checked = false;
+  clearValues(event.target.elements)
 });
 
 // RUNNING CODE
