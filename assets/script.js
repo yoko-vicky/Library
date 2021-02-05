@@ -102,11 +102,11 @@ function clearValues(el) {
 addBookForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const book = new Book();
-  setValues(book, event.target.elements)
+  setValues(book, event.target.elements);
   addBookToLibrary(book);
   addLibraryToLocalStorage();
   displayLibrary(myLibrary);
-  clearValues(event.target.elements)
+  clearValues(event.target.elements);
 });
 
 // RUNNING CODE
