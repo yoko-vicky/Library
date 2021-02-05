@@ -12,7 +12,7 @@ function addBookToLibrary(book) {
 }
 
 function removeBookFromLibrary(index) {
-  myLibrary.splice(index,1);
+  myLibrary.splice(index, 1);
 }
 
 function displayLibrary(library) {
@@ -27,16 +27,23 @@ function displayLibrary(library) {
       <td>${book.author}</td>
       <td>${book.pages}</td>
       <td>${book.status ? 'Read already' : 'Not yet'}</td>
-      <td><button class='remove_button' data-attribute='${index}'>remove</button></td>
     `;
 
     bookBody.appendChild(tr);
-    const removeButtons = document.querySelectorAll('.remove_button');
 
-    removeButtons.forEach(button => {
-      addRemoveListenerToButton(button);
+    const td = document.createElement('td');
+    const rmBtn = document.createElement('button');
+    rmBtn.classList.add('remove_button');
+    rmBtn.setAttribute('data-attribute', index);
+    rmBtn.textContent = 'remove';
+    td.appendChild(rmBtn);
+    tr.appendChild(td);
+
+    rmBtn.addEventListener('click', (event) => {
+      const index = event.target.getAttribute('data-attribute');
+      removeBookFromLibrary(index);
+      displayLibrary(myLibrary);
     });
-
   });
 }
 
@@ -46,21 +53,12 @@ displayLibrary(myLibrary);
 
 const newBookButton = document.getElementById('new_book_button');
 const addBookForm = document.getElementById('book_form');
-const submitBookButton = document.getElementById('submit_book');
 
-newBookButton.addEventListener('click', function() {
+newBookButton.addEventListener('click', () => {
   addBookForm.style.display = addBookForm.style.display === 'none' ? 'block' : 'none';
 });
 
-function addRemoveListenerToButton(button) {
-  button.addEventListener('click', function(event) {
-    const index = event.target.getAttribute('data-attribute');
-    removeBookFromLibrary(index);
-    displayLibrary(myLibrary);
-  });
-}
-
-addBookForm.addEventListener('submit', function(event) {
+addBookForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const book = new Book();
   book.title = event.target.elements.title.value;
@@ -73,8 +71,4 @@ addBookForm.addEventListener('submit', function(event) {
   event.target.elements.author.value = '';
   event.target.elements.pages.value = '';
   event.target.elements.status.checked = false;
-});
-
-removeButtons.forEach(button => {
-  addRemoveListenerToButton(button);
 });
