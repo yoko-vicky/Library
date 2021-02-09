@@ -9,16 +9,25 @@ const LibraryModule = (() => {
     }
   };
 
-  function Book(title, author, pages, status = false) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
-  }
+  class Book {
+    constructor(title, author, pages, status = false) {
+      this.title = title;
+      this.author = author;
+      this.pages = pages;
+      this.status = status;
+    }
 
-  const addBookToLibrary = (book, library) => {
-    library.push(book);
-  };
+    addBookToLibrary(library) {
+      library.push(this);
+    }
+
+    setValues = (el) => {
+      this.title = el.title.value;
+      this.author = el.author.value;
+      this.pages = el.pages.value;
+      this.status = el.status.checked;
+    };
+  }
 
   const addLibraryToLocalStorage = (library) => {
     localStorage.setItem('library', JSON.stringify(library));
@@ -81,16 +90,9 @@ const LibraryModule = (() => {
     document.getElementById('book_form').classList.toggle('open');
   };
 
-  const setValues = (book, el) => {
-    book.title = el.title.value;
-    book.author = el.author.value;
-    book.pages = el.pages.value;
-    book.status = el.status.checked;
-  };
-
   const generateBook = (e) => {
     const book = new Book();
-    setValues(book, e.target.elements);
+    book.setValues(e.target.elements);
     return book;
   };
 
@@ -102,7 +104,7 @@ const LibraryModule = (() => {
   };
 
   const submitForm = (e, library) => {
-    addBookToLibrary(generateBook(e), library);
+    generateBook(e).addBookToLibrary(library);
     addLibraryToLocalStorage(library);
     displayLibrary(library);
     clearValues(e.target.elements);
